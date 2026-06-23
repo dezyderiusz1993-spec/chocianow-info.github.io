@@ -5,19 +5,20 @@
 Frontend (`index.html`, `assets/`) jest hostowany przez GitHub Pages i wywołuje backend
 w postaci Cloudflare Workera (`worker/`), który:
 
-1. wyszukuje w internecie przez **Brave Search API**,
-2. analizuje i streszcza wyniki przy użyciu **Claude (Anthropic API)**,
+1. wysyła zapytanie do **Claude (Anthropic API)** z włączonym wbudowanym narzędziem wyszukiwania w internecie — model sam wyszukuje i analizuje wyniki,
+2. zwraca raport śledczy razem z listą źródeł, które wykorzystał,
 3. chroni dostęp kluczem (`X-Access-Key`), żeby tylko właściciel mógł z tego korzystać.
+
+Wystarczy jeden klucz API (Anthropic) — nie jest potrzebny żaden dodatkowy klucz do wyszukiwarki.
 
 ### Wdrożenie backendu (Cloudflare Worker)
 
-Wymagania: konto Cloudflare, [wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/),
-klucz Brave Search API i klucz Anthropic API.
+Wymagania: konto Cloudflare (darmowe), [wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
+i klucz Anthropic API (https://console.anthropic.com/).
 
 ```bash
 cd worker
 npx wrangler login
-npx wrangler secret put BRAVE_API_KEY
 npx wrangler secret put ANTHROPIC_API_KEY
 npx wrangler secret put ACCESS_KEY      # własne hasło dostępu do wyszukiwarki
 npx wrangler deploy
@@ -39,6 +40,6 @@ i zapamięta go w `localStorage` przeglądarki.
 
 ### Zakres i ograniczenia
 
-Narzędzie korzysta wyłącznie z publicznie dostępnych wyników wyszukiwania (Brave Search)
-i AI do ich syntezy. Nie wykonuje nieautoryzowanego dostępu do systemów, nie omija
-zabezpieczeń i nie scrapuje stron z naruszeniem ich warunków korzystania.
+Narzędzie korzysta wyłącznie z publicznie dostępnych wyników wyszukiwania (wbudowane
+wyszukiwanie w Anthropic API) i AI do ich syntezy. Nie wykonuje nieautoryzowanego dostępu
+do systemów, nie omija zabezpieczeń i nie scrapuje stron z naruszeniem ich warunków korzystania.

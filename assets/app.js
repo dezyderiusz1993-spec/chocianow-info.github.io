@@ -36,12 +36,14 @@ function renderResults(data) {
     a.href = src.url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
-    a.textContent = src.title;
-    const desc = document.createElement("div");
-    desc.className = "desc";
-    desc.textContent = src.description;
+    a.textContent = src.title || src.url;
     li.appendChild(a);
-    li.appendChild(desc);
+    if (src.description) {
+      const desc = document.createElement("div");
+      desc.className = "desc";
+      desc.textContent = src.description;
+      li.appendChild(desc);
+    }
     sourcesEl.appendChild(li);
   });
   sourcesSection.hidden = data.sources.length === 0;

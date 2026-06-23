@@ -1,6 +1,5 @@
 const ANTHROPIC_MODEL = "claude-sonnet-4-6";
 const MAX_QUERY_LENGTH = 300;
-const SEARCH_RESULT_COUNT = 10;
 
 function corsHeaders(origin, allowedOrigins) {
   const allowed = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
@@ -12,47 +11,38 @@ function corsHeaders(origin, allowedOrigins) {
   };
 }
 
-async function braveSearch(query, apiKey) {
-  const url = new URL("https://api.search.brave.com/res/v1/web/search");
-  url.searchParams.set("q", query);
-  url.searchParams.set("count", String(SEARCH_RESULT_COUNT));
-
-  const res = await fetch(url, {
-    headers: {
-      Accept: "application/json",
-      "X-Subscription-Token": apiKey,
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error(`Brave Search API error: ${res.status}`);
+function extractSources(content) {
+  const sources = [];
+  const seen = new Set();
+  for (const block of content) {
+    if (block.type !== "web_search_tool_result") continue;
+    for (const item of block.content ?? []) {
+      if (item.type === "web_search_result" && !seen.has(item.url)) {
+        seen.add(item.url);
+        sources.push({ title: item.title, url: item.url, description: "" });
+      }
+    }
   }
-
-  const data = await res.json();
-  const results = data.web?.results ?? [];
-  return results.map((r) => ({
-    title: r.title,
-    url: r.url,
-    description: r.description,
-  }));
+  return sources;
 }
 
-async function synthesizeWithClaude(query, results, apiKey) {
-  const sourcesList = results
-    .map((r, i) => `[${i + 1}] ${r.title}\nURL: ${r.url}\n${r.description}`)
+function extractReportText(content) {
+  return content
+    .filter((block) => block.type === "text")
+    .map((block) => block.text)
     .join("\n\n");
+}
 
-  const systemPrompt = `Jesteś asystentem researchowym wspierającym śledztwa OSINT (Open Source Intelligence). Analizujesz WYŁĄCZNIE publicznie dostępne wyniki wyszukiwania podane poniżej.
+async function investigate(query, apiKey) {
+  const systemPrompt = `Jesteś asystentem researchowym wspierającym śledztwa OSINT (Open Source Intelligence). Masz dostęp do narzędzia wyszukiwania w internecie — korzystaj z niego, żeby znaleźć aktualne, publicznie dostępne informacje na podane zapytanie.
 
 Zasady:
-- Korzystaj tylko z informacji zawartych w podanych źródłach. Nie zgaduj i nie wymyślaj faktów.
-- Cytuj źródła numerami w nawiasach kwadratowych, np. [1], [2], odpowiadającymi numeracji poniżej.
-- Jeśli źródła są niewystarczające, sprzeczne albo niewiarygodne, wyraźnie to zaznacz.
+- Korzystaj tylko z informacji znalezionych przez wyszukiwanie. Nie zgaduj i nie wymyślaj faktów.
+- Cytuj źródła (tytuł/URL), z których pochodzi każde ustalenie.
+- Jeśli informacje są niewystarczające, sprzeczne albo niewiarygodne, wyraźnie to zaznacz.
 - Oddzielaj fakty potwierdzone w wielu źródłach od pojedynczych/niepotwierdzonych wzmianek.
-- Nie podawaj danych umożliwiających nielegalne działania (np. łamanie zabezpieczeń, dostęp do prywatnych danych) — opieraj się tylko na danych jawnych.
+- Nie podawaj informacji umożliwiających nielegalne działania (np. łamanie zabezpieczeń, dostęp do prywatnych/niepublicznych danych) — opieraj się tylko na danych jawnych.
 - Odpowiadaj w języku polskim, w formie krótkiego raportu śledczego: streszczenie, kluczowe ustalenia z cytatami, niejasności/braki.`;
-
-  const userPrompt = `Zapytanie śledcze: "${query}"\n\nŹródła:\n\n${sourcesList}`;
 
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -63,9 +53,16 @@ Zasady:
     },
     body: JSON.stringify({
       model: ANTHROPIC_MODEL,
-      max_tokens: 1500,
+      max_tokens: 2000,
       system: systemPrompt,
-      messages: [{ role: "user", content: userPrompt }],
+      messages: [{ role: "user", content: query }],
+      tools: [
+        {
+          type: "web_search_20250305",
+          name: "web_search",
+          max_uses: 6,
+        },
+      ],
     }),
   });
 
@@ -75,7 +72,10 @@ Zasady:
   }
 
   const data = await res.json();
-  return data.content?.[0]?.text ?? "";
+  return {
+    report: extractReportText(data.content ?? []),
+    sources: extractSources(data.content ?? []),
+  };
 }
 
 export default {
@@ -120,12 +120,8 @@ export default {
     }
 
     try {
-      const results = await braveSearch(query, env.BRAVE_API_KEY);
-      const report = results.length
-        ? await synthesizeWithClaude(query, results, env.ANTHROPIC_API_KEY)
-        : "Nie znaleziono wyników wyszukiwania dla tego zapytania.";
-
-      return new Response(JSON.stringify({ query, report, sources: results }), {
+      const { report, sources } = await investigate(query, env.ANTHROPIC_API_KEY);
+      return new Response(JSON.stringify({ query, report, sources }), {
         headers: { ...headers, "Content-Type": "application/json" },
       });
     } catch (err) {

@@ -3,7 +3,6 @@ main = "src/index.js"
 compatibility_date = "2024-11-01"
 
 # Secrets (set with `wrangler secret put <NAME>`, never commit values here):
-#   BRAVE_API_KEY      - Brave Search API key
 #   ANTHROPIC_API_KEY  - Anthropic (Claude) API key
 #   ACCESS_KEY         - password that protects this worker from public use
 
