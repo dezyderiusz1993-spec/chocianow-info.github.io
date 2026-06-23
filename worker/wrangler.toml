@@ -1,0 +1,11 @@
+name = "ai-investigation-search"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Secrets (set with `wrangler secret put <NAME>`, never commit values here):
+#   ANTHROPIC_API_KEY  - Anthropic (Claude) API key
+#   ACCESS_KEY         - password that protects this worker from public use
+
+[vars]
+# Comma-separated list of origins allowed to call this worker.
+ALLOWED_ORIGINS = "https://chocianow-info.github.io"
