@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claymorphism Design System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="tokens.css" />
+  <style>
+    /* ── Tailwind overrides to use CSS tokens ── */
+    body { background: var(--color-bg); font-family: var(--font-body); }
+
+    /* Swatch chips */
+    .swatch { width: 64px; height: 64px; border-radius: var(--radius-lg); border: var(--border-base) solid rgba(0,0,0,0.08); box-shadow: var(--shadow-clay-sm); }
+
+    /* Section header */
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-2xl);
+      color: var(--color-text-primary);
+      padding-bottom: var(--space-3);
+      border-bottom: var(--border-base) dashed var(--color-border);
+      margin-bottom: var(--space-8);
+    }
+
+    /* Token row */
+    .token-row { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-lilac); }
+    .token-name { font-family: monospace; font-size: var(--text-sm); color: var(--color-peach-dark); min-width: 220px; }
+    .token-value { font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+    /* Nav */
+    .ds-nav { position: sticky; top: 0; z-index: var(--z-overlay); background: rgba(250,250,250,0.85); backdrop-filter: blur(12px); border-bottom: var(--border-thin) solid var(--color-border); }
+    .ds-nav a { font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 600; color: var(--color-text-secondary); text-decoration: none; padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); transition: background var(--duration-sm) var(--ease-out), color var(--duration-sm); }
+    .ds-nav a:hover { background: var(--color-peach-light); color: var(--color-peach-dark); }
+
+    /* Specimen */
+    .type-specimen { padding: var(--space-3) 0; border-bottom: 1px solid var(--color-lilac); }
+    .type-specimen .meta { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────── -->
+<nav class="ds-nav">
+  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center gap-2 overflow-x-auto">
+    <span style="font-family:var(--font-heading);font-size:var(--text-lg);font-weight:700;color:var(--color-peach-dark);white-space:nowrap;margin-right:var(--space-4)">
+      Clay DS
+    </span>
+    <a href="#colors">Kolory</a>
+    <a href="#typography">Typografia</a>
+    <a href="#spacing">Odstępy</a>
+    <a href="#shadows">Cienie</a>
+    <a href="#buttons">Przyciski</a>
+    <a href="#cards">Karty</a>
+    <a href="#badges">Odznaki</a>
+    <a href="#inputs">Pola</a>
+    <a href="#alerts">Alerty</a>
+    <a href="#avatars">Avatary</a>
+    <a href="#progress">Postęp</a>
+    <a href="#toggles">Przełączniki</a>
+    <a href="#tokens">Tokeny</a>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────── -->
+<header class="max-w-6xl mx-auto px-6 py-20 text-center">
+  <div class="inline-flex items-center gap-2 clay-badge clay-badge-peach mb-6" style="font-size:var(--text-sm)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+    UI/UX Pro Max · Claymorphism
+  </div>
+  <h1 style="font-family:var(--font-heading);font-size:var(--text-5xl);color:var(--color-text-primary);margin-bottom:var(--space-4)">
+    Design System
+  </h1>
+  <p style="font-size:var(--text-xl);color:var(--color-text-secondary);max-width:540px;margin:0 auto var(--space-8);line-height:var(--leading-loose)">
+    Miękki, zaokrąglony i przyjazny — Claymorphism na HTML + Tailwind.
+  </p>
+  <div class="flex flex-wrap gap-3 justify-center">
+    <a href="#buttons" class="clay-btn clay-btn-primary clay-btn-lg">Odkryj komponenty</a>
+    <a href="#tokens" class="clay-btn clay-btn-ghost clay-btn-lg">Zobacz tokeny</a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 pb-24 space-y-24">
+
+  <!-- ── Colors ─────────────────────────────────────────── -->
+  <section id="colors">
+    <h2 class="section-title">Paleta kolorów</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <!-- Peach -->
+      <div class="clay-card">
+        <h3 style="font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)">Brzoskwinia (Primary)</h3>
+        <div class="flex gap-3">
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-peach-light)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#FEE4E0<br>light</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-peach)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#FDBCB4<br>base</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-peach-dark)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#F78B7E<br>dark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blue -->
+      <div class="clay-card">
+        <h3 style="font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)">Błękit (Secondary)</h3>
+        <div class="flex gap-3">
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-blue-light)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#D6EFF6<br>light</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-blue)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#ADD8E6<br>base</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-blue-dark)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#7BC2D4<br>dark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mint -->
+      <div class="clay-card">
+        <h3 style="font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)">Mięta (Accent)</h3>
+        <div class="flex gap-3">
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-mint-light)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#CCFFCC<br>light</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-mint)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#98FF98<br>base</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-mint-dark)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#5CE05C<br>dark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lilac -->
+      <div class="clay-card">
+        <h3 style="font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)">Liliowy (Neutral)</h3>
+        <div class="flex gap-3">
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-lilac-light)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#F3F3FD<br>light</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-lilac)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#E6E6FA<br>base</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <div class="swatch" style="background:var(--color-lilac-dark)"></div>
+            <span style="font-size:var(--text-xs);color:var(--color-text-muted)">#C4C4F0<br>dark</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text colors -->
+    <div class="clay-card mt-6">
+      <h3 style="font-family:var(--font-heading);font-size:var(--text-lg);margin-bottom:var(--space-4)">Tekst &amp; Tło</h3>
+      <div class="flex flex-wrap gap-4">
+        <div class="flex items-center gap-3">
+          <div class="swatch" style="background:var(--color-text-primary);width:44px;height:44px"></div>
+          <div><div style="font-weight:600">Primary</div><div style="font-size:var(--text-xs);color:var(--color-text-muted)">#2D2D2D</div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="swatch" style="background:var(--color-text-secondary);width:44px;height:44px"></div>
+          <div><div style="font-weight:600">Secondary</div><div style="font-size:var(--text-xs);color:var(--color-text-muted)">#6B6B7A</div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="swatch" style="background:var(--color-text-muted);width:44px;height:44px"></div>
+          <div><div style="font-weight:600">Muted</div><div style="font-size:var(--text-xs);color:var(--color-text-muted)">#9999AA</div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="swatch" style="background:var(--color-bg);border:2px solid var(--color-border);width:44px;height:44px"></div>
+          <div><div style="font-weight:600">BG</div><div style="font-size:var(--text-xs);color:var(--color-text-muted)">#FAFAFA</div></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="swatch" style="background:var(--color-surface);border:2px solid var(--color-border);width:44px;height:44px"></div>
+          <div><div style="font-weight:600">Surface</div><div style="font-size:var(--text-xs);color:var(--color-text-muted)">#FFFFFF</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Typography ─────────────────────────────────────── -->
+  <section id="typography">
+    <h2 class="section-title">Typografia</h2>
+    <div class="clay-card space-y-6">
+      <div>
+        <p class="clay-label">Nagłówki — Varela Round</p>
+        <div class="space-y-3">
+          <div class="type-specimen">
+            <div style="font-family:var(--font-heading);font-size:var(--text-5xl)">Display 5XL</div>
+            <div class="meta">Varela Round · 3rem · leading-tight</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-family:var(--font-heading);font-size:var(--text-4xl)">Heading 4XL</div>
+            <div class="meta">Varela Round · 2.25rem</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-family:var(--font-heading);font-size:var(--text-3xl)">Heading 3XL</div>
+            <div class="meta">Varela Round · 1.875rem</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-family:var(--font-heading);font-size:var(--text-2xl)">Heading 2XL</div>
+            <div class="meta">Varela Round · 1.5rem</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-family:var(--font-heading);font-size:var(--text-xl)">Heading XL</div>
+            <div class="meta">Varela Round · 1.25rem</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-family:var(--font-heading);font-size:var(--text-lg)">Heading LG</div>
+            <div class="meta">Varela Round · 1.125rem</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="clay-label">Treść — Nunito Sans</p>
+        <div class="space-y-3">
+          <div class="type-specimen">
+            <div style="font-size:var(--text-lg);line-height:var(--leading-loose)">Large — Tekst wprowadzający dla sekcji wymagających uwagi czytelnika.</div>
+            <div class="meta">Nunito Sans · 1.125rem · leading-loose</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-size:var(--text-base);line-height:var(--leading-normal)">Base — Standardowy tekst akapitu używany do opisów, treści artykułów i interfejsu użytkownika.</div>
+            <div class="meta">Nunito Sans · 1rem · leading-normal</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-size:var(--text-sm);color:var(--color-text-secondary);line-height:var(--leading-normal)">Small — Tekst pomocniczy, metadane, podpisy i etykiety formularzy.</div>
+            <div class="meta">Nunito Sans · 0.875rem · secondary</div>
+          </div>
+          <div class="type-specimen">
+            <div style="font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:0.05em;text-transform:uppercase;font-weight:700">XS UPPERCASE LABEL</div>
+            <div class="meta">Nunito Sans · 0.75rem · uppercase · tracking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Spacing ─────────────────────────────────────────── -->
+  <section id="spacing">
+    <h2 class="section-title">Odstępy (4dp / 8dp rhythm)</h2>
+    <div class="clay-card">
+      <div class="space-y-3">
+        {[['--space-1','4px','0.25rem'],['--space-2','8px','0.5rem'],['--space-3','12px','0.75rem'],['--space-4','16px','1rem'],['--space-6','24px','1.5rem'],['--space-8','32px','2rem'],['--space-12','48px','3rem'],['--space-16','64px','4rem']].map(([t,px,rem]) => `
+        <div class="token-row">
+          <span class="token-name">${t}</span>
+          <div style="height:12px;border-radius:4px;background:var(--color-peach);box-shadow:var(--shadow-clay-sm)" data-w="${px}"></div>
+          <span class="token-value">${px} / ${rem}</span>
+        </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Shadows ─────────────────────────────────────────── -->
+  <section id="shadows">
+    <h2 class="section-title">Cienie (Claymorphism)</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div style="background:var(--color-surface);border-radius:var(--radius-2xl);padding:var(--space-8);text-align:center;box-shadow:var(--shadow-clay-sm)">
+        <p style="font-family:var(--font-heading);font-size:var(--text-sm);color:var(--color-text-secondary)">shadow-clay-sm</p>
+      </div>
+      <div style="background:var(--color-surface);border-radius:var(--radius-2xl);padding:var(--space-8);text-align:center;box-shadow:var(--shadow-clay-md)">
+        <p style="font-family:var(--font-heading);font-size:var(--text-sm);color:var(--color-text-secondary)">shadow-clay-md</p>
+      </div>
+      <div style="background:var(--color-surface);border-radius:var(--radius-2xl);padding:var(--space-8);text-align:center;box-shadow:var(--shadow-clay-lg)">
+        <p style="font-family:var(--font-heading);font-size:var(--text-sm);color:var(--color-text-secondary)">shadow-clay-lg</p>
+      </div>
+      <div style="background:var(--color-surface);border-radius:var(--radius-2xl);padding:var(--space-8);text-align:center;box-shadow:var(--shadow-clay-pressed)">
+        <p style="font-family:var(--font-heading);font-size:var(--text-sm);color:var(--color-text-secondary)">shadow-clay-pressed</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Buttons ─────────────────────────────────────────── -->
+  <section id="buttons">
+    <h2 class="section-title">Przyciski</h2>
+    <div class="clay-card space-y-8">
+
+      <!-- Variants -->
+      <div>
+        <p class="clay-label mb-4">Warianty</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="clay-btn clay-btn-primary">Primary</button>
+          <button class="clay-btn clay-btn-secondary">Secondary</button>
+          <button class="clay-btn clay-btn-accent">Accent</button>
+          <button class="clay-btn clay-btn-ghost">Ghost</button>
+        </div>
+      </div>
+
+      <!-- Sizes -->
+      <div>
+        <p class="clay-label mb-4">Rozmiary</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <button class="clay-btn clay-btn-primary clay-btn-sm">Small</button>
+          <button class="clay-btn clay-btn-primary">Default</button>
+          <button class="clay-btn clay-btn-primary clay-btn-lg">Large</button>
+        </div>
+      </div>
+
+      <!-- With icons -->
+      <div>
+        <p class="clay-label mb-4">Z ikonami SVG</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="clay-btn clay-btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Pobierz
+          </button>
+          <button class="clay-btn clay-btn-accent">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Zapisz
+          </button>
+          <button class="clay-btn clay-btn-secondary">
+            Udostępnij
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Icon only -->
+      <div>
+        <p class="clay-label mb-4">Tylko ikona</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="clay-btn clay-btn-primary" style="width:44px;height:44px;padding:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </button>
+          <button class="clay-btn clay-btn-secondary" style="width:44px;height:44px;padding:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </button>
+          <button class="clay-btn clay-btn-ghost" style="width:44px;height:44px;padding:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Cards ──────────────────────────────────────────── -->
+  <section id="cards">
+    <h2 class="section-title">Karty</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Feature card -->
+      <div class="clay-card" style="background:var(--color-peach-light);border-color:var(--color-peach)">
+        <div style="width:48px;height:48px;background:var(--color-peach);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);box-shadow:var(--shadow-clay-sm)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B3E35" stroke-width="2.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <h3 style="font-family:var(--font-heading);font-size:var(--text-xl);margin-bottom:var(--space-2)">Funkcja Premium</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);line-height:var(--leading-loose)">Opis funkcji z przyjaznym, zaokrąglonym stylem Claymorphism idealnym dla SaaS.</p>
+      </div>
+
+      <!-- Stat card -->
+      <div class="clay-card" style="background:var(--color-blue-light);border-color:var(--color-blue)">
+        <p style="font-size:var(--text-xs);font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:var(--space-2)">Użytkownicy</p>
+        <p style="font-family:var(--font-heading);font-size:var(--text-4xl);color:#1A5F70;margin-bottom:var(--space-1)">24,890</p>
+        <span class="clay-badge clay-badge-mint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/><path d="m18 6-6-4-6 4"/></svg>
+          +12.4%
+        </span>
+      </div>
+
+      <!-- Profile card -->
+      <div class="clay-card" style="background:var(--color-mint-light);border-color:var(--color-mint)">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="clay-avatar clay-avatar-md" style="background:var(--color-mint)">
+            <span style="font-size:var(--text-lg)">AK</span>
+          </div>
+          <div>
+            <p style="font-family:var(--font-heading);font-size:var(--text-base);font-weight:700">Anna Kowalska</p>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted)">UX Designer</p>
+          </div>
+        </div>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);line-height:var(--leading-loose)">"Claymorphism to styl, który sprawia że interfejs wygląda radośnie i przyjaźnie."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Badges ─────────────────────────────────────────── -->
+  <section id="badges">
+    <h2 class="section-title">Odznaki / Tagi</h2>
+    <div class="clay-card">
+      <div class="flex flex-wrap gap-3">
+        <span class="clay-badge clay-badge-peach">Nowe</span>
+        <span class="clay-badge clay-badge-blue">Beta</span>
+        <span class="clay-badge clay-badge-mint">Aktywny</span>
+        <span class="clay-badge clay-badge-lilac">Premium</span>
+        <span class="clay-badge clay-badge-peach">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
+          Na żywo
+        </span>
+        <span class="clay-badge clay-badge-blue">v2.5.0</span>
+        <span class="clay-badge clay-badge-mint">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          Ukończono
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Inputs ─────────────────────────────────────────── -->
+  <section id="inputs">
+    <h2 class="section-title">Pola formularza</h2>
+    <div class="clay-card max-w-lg">
+      <div class="space-y-5">
+
+        <div>
+          <label class="clay-label">Imię i nazwisko</label>
+          <input type="text" class="clay-input" placeholder="Anna Kowalska" />
+        </div>
+
+        <div>
+          <label class="clay-label">Adres e-mail</label>
+          <input type="email" class="clay-input" placeholder="anna@example.com" />
+        </div>
+
+        <div>
+          <label class="clay-label">Wiadomość</label>
+          <textarea class="clay-input" rows="4" placeholder="Napisz coś miłego..." style="resize:vertical"></textarea>
+        </div>
+
+        <div>
+          <label class="clay-label">Kategoria</label>
+          <select class="clay-input" style="appearance:none;cursor:pointer">
+            <option>Wybierz kategorię...</option>
+            <option>Design</option>
+            <option>Programowanie</option>
+            <option>Marketing</option>
+          </select>
+        </div>
+
+        <button class="clay-btn clay-btn-primary" style="width:100%">Wyślij wiadomość</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Alerts ─────────────────────────────────────────── -->
+  <section id="alerts">
+    <h2 class="section-title">Alerty / Powiadomienia</h2>
+    <div class="space-y-4">
+
+      <div class="clay-alert clay-alert-success">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" flex-shrink="0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        <div>
+          <strong style="font-family:var(--font-heading)">Sukces!</strong>
+          <p style="margin-top:2px">Twoje zmiany zostały zapisane pomyślnie.</p>
+        </div>
+      </div>
+
+      <div class="clay-alert clay-alert-info">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>
+          <strong style="font-family:var(--font-heading)">Informacja</strong>
+          <p style="margin-top:2px">Nowa wersja design systemu jest dostępna.</p>
+        </div>
+      </div>
+
+      <div class="clay-alert clay-alert-warning">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>
+          <strong style="font-family:var(--font-heading)">Uwaga</strong>
+          <p style="margin-top:2px">Upewnij się, że kontrast tekstu wynosi minimum 4.5:1.</p>
+        </div>
+      </div>
+
+      <div class="clay-alert clay-alert-default">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        <div>
+          <strong style="font-family:var(--font-heading)">Wskazówka</strong>
+          <p style="margin-top:2px">Używaj Varela Round dla nagłówków i Nunito Sans dla treści.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avatars ─────────────────────────────────────────── -->
+  <section id="avatars">
+    <h2 class="section-title">Avatary</h2>
+    <div class="clay-card">
+      <div class="flex flex-wrap items-end gap-6">
+        <!-- Sizes -->
+        <div class="flex flex-col items-center gap-2">
+          <div class="clay-avatar clay-avatar-sm" style="background:var(--color-peach)"><span>AK</span></div>
+          <span style="font-size:var(--text-xs);color:var(--color-text-muted)">sm · 32px</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="clay-avatar clay-avatar-md" style="background:var(--color-blue)"><span>BW</span></div>
+          <span style="font-size:var(--text-xs);color:var(--color-text-muted)">md · 44px</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="clay-avatar clay-avatar-lg" style="background:var(--color-mint)"><span>CZ</span></div>
+          <span style="font-size:var(--text-xs);color:var(--color-text-muted)">lg · 64px</span>
+        </div>
+        <!-- Group -->
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex" style="gap:-8px">
+            <div class="clay-avatar clay-avatar-md" style="background:var(--color-peach);margin-right:-12px;z-index:3">AK</div>
+            <div class="clay-avatar clay-avatar-md" style="background:var(--color-blue);margin-right:-12px;z-index:2">BW</div>
+            <div class="clay-avatar clay-avatar-md" style="background:var(--color-mint);margin-right:-12px;z-index:1">CZ</div>
+            <div class="clay-avatar clay-avatar-md" style="background:var(--color-lilac);z-index:0;font-size:var(--text-xs)">+5</div>
+          </div>
+          <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Grupa</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Progress ───────────────────────────────────────── -->
+  <section id="progress">
+    <h2 class="section-title">Paski postępu</h2>
+    <div class="clay-card space-y-6">
+      <div>
+        <div class="flex justify-between mb-2">
+          <span class="clay-label" style="margin-bottom:0">Design</span>
+          <span style="font-size:var(--text-sm);color:var(--color-text-muted)">85%</span>
+        </div>
+        <div class="clay-progress"><div class="clay-progress-bar" style="width:85%;background:linear-gradient(90deg,var(--color-peach),var(--color-peach-dark))"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between mb-2">
+          <span class="clay-label" style="margin-bottom:0">Programowanie</span>
+          <span style="font-size:var(--text-sm);color:var(--color-text-muted)">60%</span>
+        </div>
+        <div class="clay-progress"><div class="clay-progress-bar" style="width:60%;background:linear-gradient(90deg,var(--color-blue),var(--color-blue-dark))"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between mb-2">
+          <span class="clay-label" style="margin-bottom:0">Testy</span>
+          <span style="font-size:var(--text-sm);color:var(--color-text-muted)">40%</span>
+        </div>
+        <div class="clay-progress"><div class="clay-progress-bar" style="width:40%;background:linear-gradient(90deg,var(--color-mint),var(--color-mint-dark))"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Toggles ─────────────────────────────────────────── -->
+  <section id="toggles">
+    <h2 class="section-title">Przełączniki</h2>
+    <div class="clay-card space-y-5">
+      <label class="clay-toggle" onclick="this.querySelector('.clay-toggle-track').classList.toggle('active')">
+        <div class="clay-toggle-track active"><div class="clay-toggle-thumb"></div></div>
+        <span style="font-size:var(--text-base)">Powiadomienia e-mail</span>
+      </label>
+      <label class="clay-toggle" onclick="this.querySelector('.clay-toggle-track').classList.toggle('active')">
+        <div class="clay-toggle-track"><div class="clay-toggle-thumb"></div></div>
+        <span style="font-size:var(--text-base)">Tryb ciemny</span>
+      </label>
+      <label class="clay-toggle" onclick="this.querySelector('.clay-toggle-track').classList.toggle('active')">
+        <div class="clay-toggle-track active"><div class="clay-toggle-thumb"></div></div>
+        <span style="font-size:var(--text-base)">Analityka</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Tokens Reference ────────────────────────────────── -->
+  <section id="tokens">
+    <h2 class="section-title">Tokeny CSS — pełna lista</h2>
+    <div class="clay-card">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Colors -->
+        <div>
+          <p class="clay-label">Kolory</p>
+          <div class="token-row"><span class="token-name">--color-peach</span><span class="token-value">#FDBCB4</span></div>
+          <div class="token-row"><span class="token-name">--color-blue</span><span class="token-value">#ADD8E6</span></div>
+          <div class="token-row"><span class="token-name">--color-mint</span><span class="token-value">#98FF98</span></div>
+          <div class="token-row"><span class="token-name">--color-lilac</span><span class="token-value">#E6E6FA</span></div>
+          <div class="token-row"><span class="token-name">--color-text-primary</span><span class="token-value">#2D2D2D</span></div>
+          <div class="token-row"><span class="token-name">--color-text-secondary</span><span class="token-value">#6B6B7A</span></div>
+          <div class="token-row"><span class="token-name">--color-bg</span><span class="token-value">#FAFAFA</span></div>
+          <div class="token-row"><span class="token-name">--color-surface</span><span class="token-value">#FFFFFF</span></div>
+        </div>
+        <!-- Shape -->
+        <div>
+          <p class="clay-label">Kształt &amp; Cień</p>
+          <div class="token-row"><span class="token-name">--radius-sm</span><span class="token-value">8px</span></div>
+          <div class="token-row"><span class="token-name">--radius-lg</span><span class="token-value">16px</span></div>
+          <div class="token-row"><span class="token-name">--radius-xl</span><span class="token-value">20px</span></div>
+          <div class="token-row"><span class="token-name">--radius-2xl</span><span class="token-value">24px</span></div>
+          <div class="token-row"><span class="token-name">--border-base</span><span class="token-value">3px solid</span></div>
+          <div class="token-row"><span class="token-name">--border-thick</span><span class="token-value">4px solid</span></div>
+          <div class="token-row"><span class="token-name">--shadow-clay-sm</span><span class="token-value">4px 4px 8px + inset</span></div>
+          <div class="token-row"><span class="token-name">--shadow-clay-md</span><span class="token-value">6px 6px 14px + inset</span></div>
+        </div>
+        <!-- Typography -->
+        <div>
+          <p class="clay-label">Typografia</p>
+          <div class="token-row"><span class="token-name">--font-heading</span><span class="token-value">Varela Round</span></div>
+          <div class="token-row"><span class="token-name">--font-body</span><span class="token-value">Nunito Sans</span></div>
+          <div class="token-row"><span class="token-name">--text-xs</span><span class="token-value">0.75rem</span></div>
+          <div class="token-row"><span class="token-name">--text-sm</span><span class="token-value">0.875rem</span></div>
+          <div class="token-row"><span class="token-name">--text-base</span><span class="token-value">1rem</span></div>
+          <div class="token-row"><span class="token-name">--text-xl</span><span class="token-value">1.25rem</span></div>
+          <div class="token-row"><span class="token-name">--text-3xl</span><span class="token-value">1.875rem</span></div>
+          <div class="token-row"><span class="token-name">--text-5xl</span><span class="token-value">3rem</span></div>
+        </div>
+        <!-- Animation -->
+        <div>
+          <p class="clay-label">Animacja</p>
+          <div class="token-row"><span class="token-name">--ease-clay</span><span class="token-value">cubic-bezier(0.34, 1.56, 0.64, 1)</span></div>
+          <div class="token-row"><span class="token-name">--ease-out</span><span class="token-value">cubic-bezier(0.22, 1, 0.36, 1)</span></div>
+          <div class="token-row"><span class="token-name">--duration-xs</span><span class="token-value">100ms</span></div>
+          <div class="token-row"><span class="token-name">--duration-sm</span><span class="token-value">150ms</span></div>
+          <div class="token-row"><span class="token-name">--duration-md</span><span class="token-value">200ms</span></div>
+          <div class="token-row"><span class="token-name">--duration-lg</span><span class="token-value">300ms</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ──────────────────────────────────────────── -->
+<footer style="border-top:var(--border-thin) solid var(--color-border);padding:var(--space-8) var(--space-6);text-align:center">
+  <p style="font-size:var(--text-sm);color:var(--color-text-muted)">
+    Wygenerowano z <strong style="font-family:var(--font-heading);color:var(--color-peach-dark)">UI/UX Pro Max</strong> · Claymorphism Design System · HTML + Tailwind
+  </p>
+</footer>
+
+<script>
+  /* Spacing bar widths */
+  document.querySelectorAll('[data-w]').forEach(el => {
+    el.style.width = el.dataset.w;
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,335 @@
+/* UI/UX Pro Max — Claymorphism Design System Tokens */
+/* Generated with ui-ux-pro-max skill v2.5.0 | Stack: HTML + Tailwind */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700&family=Varela+Round&display=swap');
+
+:root {
+  /* ── Colors ──────────────────────────────────────────── */
+  --color-peach:        #FDBCB4;
+  --color-peach-dark:   #F78B7E;
+  --color-peach-light:  #FEE4E0;
+
+  --color-blue:         #ADD8E6;
+  --color-blue-dark:    #7BC2D4;
+  --color-blue-light:   #D6EFF6;
+
+  --color-mint:         #98FF98;
+  --color-mint-dark:    #5CE05C;
+  --color-mint-light:   #CCFFCC;
+
+  --color-lilac:        #E6E6FA;
+  --color-lilac-dark:   #C4C4F0;
+  --color-lilac-light:  #F3F3FD;
+
+  --color-bg:           #FAFAFA;
+  --color-surface:      #FFFFFF;
+  --color-border:       #E8D5D2;
+
+  --color-text-primary:   #2D2D2D;
+  --color-text-secondary: #6B6B7A;
+  --color-text-muted:     #9999AA;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-heading: 'Varela Round', sans-serif;
+  --font-body:    'Nunito Sans', sans-serif;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+
+  --leading-tight:  1.25;
+  --leading-normal: 1.5;
+  --leading-loose:  1.75;
+
+  /* ── Spacing (4/8dp rhythm) ──────────────────────────── */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ── Border Radius (Claymorphism: 16–24px) ───────────── */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Border Width (Claymorphism: 3–4px) ──────────────── */
+  --border-thin:   2px;
+  --border-base:   3px;
+  --border-thick:  4px;
+
+  /* ── Shadows (inner + outer Claymorphism) ────────────── */
+  --shadow-clay-sm:
+    4px 4px 8px rgba(0,0,0,0.10),
+    inset -2px -2px 6px rgba(255,255,255,0.60);
+
+  --shadow-clay-md:
+    6px 6px 14px rgba(0,0,0,0.12),
+    inset -3px -3px 8px rgba(255,255,255,0.65);
+
+  --shadow-clay-lg:
+    8px 8px 20px rgba(0,0,0,0.14),
+    inset -4px -4px 10px rgba(255,255,255,0.70);
+
+  --shadow-clay-pressed:
+    2px 2px 5px rgba(0,0,0,0.12),
+    inset 2px 2px 8px rgba(0,0,0,0.08);
+
+  /* ── Animation ───────────────────────────────────────── */
+  --ease-clay:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-xs: 100ms;
+  --duration-sm: 150ms;
+  --duration-md: 200ms;
+  --duration-lg: 300ms;
+
+  /* ── Z-index ─────────────────────────────────────────── */
+  --z-below:   -1;
+  --z-base:     0;
+  --z-raised:   10;
+  --z-overlay:  100;
+  --z-modal:    200;
+  --z-toast:    300;
+}
+
+/* ── Base Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: var(--leading-tight);
+}
+
+/* ── Clay Card ───────────────────────────────────────────── */
+.clay-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  border: var(--border-base) solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-clay-md);
+  padding: var(--space-6);
+  transition: transform var(--duration-md) var(--ease-clay),
+              box-shadow var(--duration-md) var(--ease-clay);
+}
+.clay-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-clay-lg);
+}
+
+/* ── Clay Button ─────────────────────────────────────────── */
+.clay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  border: var(--border-base) solid transparent;
+  padding: var(--space-3) var(--space-6);
+  cursor: pointer;
+  transition: transform var(--duration-md) var(--ease-clay),
+              box-shadow var(--duration-md) var(--ease-clay);
+  user-select: none;
+  text-decoration: none;
+}
+.clay-btn:hover  { transform: translateY(-2px); }
+.clay-btn:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-clay-pressed) !important;
+}
+.clay-btn:focus-visible {
+  outline: 3px solid var(--color-blue-dark);
+  outline-offset: 3px;
+}
+
+.clay-btn-primary {
+  background: var(--color-peach);
+  border-color: var(--color-peach-dark);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-clay-md);
+}
+.clay-btn-secondary {
+  background: var(--color-blue);
+  border-color: var(--color-blue-dark);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-clay-md);
+}
+.clay-btn-accent {
+  background: var(--color-mint);
+  border-color: var(--color-mint-dark);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-clay-md);
+}
+.clay-btn-ghost {
+  background: var(--color-lilac);
+  border-color: var(--color-lilac-dark);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-clay-sm);
+}
+.clay-btn-sm  { padding: var(--space-2) var(--space-4); font-size: var(--text-sm); }
+.clay-btn-lg  { padding: var(--space-4) var(--space-8); font-size: var(--text-lg); }
+
+/* ── Clay Badge ──────────────────────────────────────────── */
+.clay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  border: var(--border-thin) solid transparent;
+  padding: var(--space-1) var(--space-3);
+  box-shadow: var(--shadow-clay-sm);
+}
+.clay-badge-peach  { background: var(--color-peach);  border-color: var(--color-peach-dark);  color: #8B3E35; }
+.clay-badge-blue   { background: var(--color-blue);   border-color: var(--color-blue-dark);   color: #1A5F70; }
+.clay-badge-mint   { background: var(--color-mint);   border-color: var(--color-mint-dark);   color: #1A6B1A; }
+.clay-badge-lilac  { background: var(--color-lilac);  border-color: var(--color-lilac-dark);  color: #4B4B9E; }
+
+/* ── Clay Input ──────────────────────────────────────────── */
+.clay-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: var(--border-base) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-clay-sm);
+  outline: none;
+  transition: border-color var(--duration-sm) var(--ease-out),
+              box-shadow var(--duration-sm) var(--ease-out);
+}
+.clay-input:focus {
+  border-color: var(--color-peach-dark);
+  box-shadow: var(--shadow-clay-md), 0 0 0 3px var(--color-peach-light);
+}
+.clay-input::placeholder { color: var(--color-text-muted); }
+
+.clay-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+/* ── Clay Alert ──────────────────────────────────────────── */
+.clay-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  border-radius: var(--radius-xl);
+  border: var(--border-base) solid transparent;
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-clay-sm);
+  font-size: var(--text-sm);
+}
+.clay-alert-info    { background: var(--color-blue-light);  border-color: var(--color-blue-dark);  color: #1A5F70; }
+.clay-alert-success { background: var(--color-mint-light);  border-color: var(--color-mint-dark);  color: #1A6B1A; }
+.clay-alert-warning { background: var(--color-peach-light); border-color: var(--color-peach-dark); color: #8B3E35; }
+.clay-alert-default { background: var(--color-lilac-light); border-color: var(--color-lilac-dark); color: #4B4B9E; }
+
+/* ── Clay Avatar ─────────────────────────────────────────── */
+.clay-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  border: var(--border-base) solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-clay-sm);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.clay-avatar-sm  { width: 32px;  height: 32px;  font-size: var(--text-xs); }
+.clay-avatar-md  { width: 44px;  height: 44px;  font-size: var(--text-base); }
+.clay-avatar-lg  { width: 64px;  height: 64px;  font-size: var(--text-xl); }
+
+/* ── Clay Progress ───────────────────────────────────────── */
+.clay-progress {
+  width: 100%;
+  height: 12px;
+  background: var(--color-lilac-light);
+  border-radius: var(--radius-full);
+  border: var(--border-thin) solid var(--color-lilac-dark);
+  box-shadow: var(--shadow-clay-sm);
+  overflow: hidden;
+}
+.clay-progress-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-peach), var(--color-blue));
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);
+  transition: width var(--duration-lg) var(--ease-clay);
+}
+
+/* ── Clay Toggle ─────────────────────────────────────────── */
+.clay-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+}
+.clay-toggle-track {
+  width: 52px;
+  height: 28px;
+  background: var(--color-lilac);
+  border: var(--border-thin) solid var(--color-lilac-dark);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-clay-sm);
+  position: relative;
+  transition: background var(--duration-md) var(--ease-out);
+}
+.clay-toggle-track.active { background: var(--color-mint); border-color: var(--color-mint-dark); }
+.clay-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: var(--radius-full);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+  transition: transform var(--duration-md) var(--ease-clay);
+}
+.clay-toggle-track.active .clay-toggle-thumb { transform: translateX(24px); }
+
+/* ── Reduced Motion ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
